@@ -1,7 +1,8 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import CityData from "@/interfaces/city";
 import Link from "next/link";
+import CityData from "@/interfaces/city";
+import { debounce } from "@/utils";
 
 const MIN_CITY_CHARS = 3;
 interface jsonResponse {
@@ -20,7 +21,7 @@ export default function SearchBox(): React.ReactElement {
   }, []);
 
   useEffect(() => {
-    inputValue.length >= MIN_CITY_CHARS && fetchData(inputValue);
+    inputValue.length >= MIN_CITY_CHARS && debounce(fetchData)(inputValue);
   }, [inputValue, fetchData]);
 
   return (
