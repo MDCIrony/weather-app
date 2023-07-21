@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react';
 import CityData from '@/interfaces/city';
-import getCitiesRecomendation from '@/services/getCitiesRecomendation';
+import getCitiesRecomendation from '@/services/local/getCitiesRecomendation';
 import { debounce } from '@/utils';
 
 const MIN_CITY_CHARS = 2;
