@@ -24,7 +24,6 @@ export default async function getWeatherData(city_id: string): Promise<returnedD
 
   const weatherEndpoint = new URL(`${weatherApiUrl}/weather`);
   weatherEndpoint.search = searchParams.toString();
-  console.log(weatherEndpoint.href);
 
   const res = await fetch(weatherEndpoint.href);
   const weatherData: WeatherData = await res.json();

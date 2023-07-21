@@ -5,7 +5,7 @@ import CityData from '@/interfaces/city';
 import getCitiesRecomendation from '@/services/getCitiesRecomendation';
 import { debounce } from '@/utils';
 
-const MIN_CITY_CHARS = 5;
+const MIN_CITY_CHARS = 2;
 
 export default function SearchBox(): React.ReactElement {
   const [inputValue, setInputValue] = useState<string>('');
