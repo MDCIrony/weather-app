@@ -1,22 +1,20 @@
-import { getCityById } from '@/lib/city/utils';
-import getWeatherData from '@/services/getWeatherData';
 import Link from 'next/link';
+import getWeatherData from '@/services/remote/getWeatherData';
 
 interface Params {
   params: { city_id: string };
 }
 
 export default async function Detail({ params }: Params): Promise<React.ReactElement> {
-  const cityInfo = await getCityById(params.city_id);
-  const weatherInfo = cityInfo && (await getWeatherData(cityInfo));
+  const weatherInfo = await getWeatherData(params.city_id);
   return (
     <>
       <main>
         <div className="container">
           <Link href={'/'}>&larr; Home</Link>
-          {cityInfo && (
+          {weatherInfo && (
             <h1>
-              {cityInfo.name} ({cityInfo.country})
+              {weatherInfo.city.name} ({weatherInfo.city.country})
             </h1>
           )}
           {weatherInfo && (

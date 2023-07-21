@@ -1,27 +1,19 @@
 'use client';
-import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
+import React, { useCallback, useEffect, useState } from 'react';
 import CityData from '@/interfaces/city';
+import getCitiesRecomendation from '@/services/getCitiesRecomendation';
 import { debounce } from '@/utils';
 
-const MIN_CITY_CHARS = 3;
-interface jsonResponse {
-  cities: CityData[];
-}
+const MIN_CITY_CHARS = 5;
 
 export default function SearchBox(): React.ReactElement {
   const [inputValue, setInputValue] = useState<string>('');
   const [cities, setCities] = useState<CityData[]>([]);
-
-  const fetchData = useCallback(async (cityName: string) => {
-    await fetch(`/api/city/${cityName}`)
-      .then(res => res.json())
-      .then((data: jsonResponse) => setCities(data.cities))
-      .catch(err => console.log(err));
-  }, []);
+  const fetchData = useCallback(getCitiesRecomendation, []);
 
   useEffect(() => {
-    inputValue.length >= MIN_CITY_CHARS && debounce(fetchData)(inputValue);
+    inputValue.length >= MIN_CITY_CHARS && debounce(fetchData)(inputValue, setCities);
   }, [inputValue, fetchData]);
 
   return (
